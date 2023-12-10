@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+    
+    <title> 
+        Income Tax Calculator - My Awesome Website 
+    </title>
+
+    <style>
+        html, body {
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #584066;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        nav {
+            background-color: #402c4a;
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #584066;
+            color: white;
+        }
+
+        main {
+            margin: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #584066;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #584066;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #402c4a;
+        }
+
+        #results {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #584066;
+        }
+
+        a:hover {
+            color: #402c4a;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        .modal button {
+            background-color: #584066;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .modal button:hover {
+            background-color: #402c4a;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1> My Awesome Website </h1>
+    </header>
+
+    <nav>
+        <a href = "index.html"> Main Menu </a>
+        <a href = "assignment_1.html"> Simple Computations </a>
+        <a href = "assignment_2.html"> Income Tax Calculator </a>
+        <a href = "assignment_3.html"> Nth Factorial, Sum, and Average </a>
+        <a href = "assignment_4.html"> Simple Payroll </a>        
+    </nav>
+
+    <main>
+        <br>
+        <h2> Income Tax Calculator </h2>
+        <label for = "income"> Enter Income: </label>
+        <input type = "number" id = "income">
+		
+        <br>
+        <button id = "button_calculate"> Calculate </button>
+
+        <div id = "results"></div>
+    </main>
+
+    <div class = "modal" id="no_input_modal">
+        <div class = "modal-content">
+            <p> Please enter a valid income amount and click 'Calculate'. </p>
+            <button onclick = "close_modal()"> OK </button>
+        </div>
+    </div>
+
+    <script>
+        function income_tax() {
+            var income = parseFloat(document.getElementById("income").value);
+            var results = document.getElementById("results");
+
+            if (isNaN(income) || income <= 0) {
+                open_modal(no_input_modal);
+                return;
+            }
+
+            else if (250000 < income && income <= 400000) {
+                var calculate_1 = (Number(income) - 250000) * 0.20
+                results.innerHTML = calculate_1.toFixed(2);
+            }
+
+            else if (400000 < income && income <= 800000) {
+                var calculate_2 = 30000 + ((Number(income) - 400000) * 0.25)
+                results.innerHTML = calculate_2.toFixed(2);
+            }
+
+            else if (800000 < income && income <= 2000000) {
+                var calculate_3 = ((Number(income) - 800000) * 0.30) + 130000
+                results.innerHTML = calculate_3.toFixed(2);
+            }
+
+            else if (2000000 < income && income <= 8000000) {
+                var calculate_4 = ((Number(income) - 2000000) * 0.32) + 490000
+                results.innerHTML = calculate_4.toFixed(2);
+            }
+
+            else if (income > 8000000) {
+                var calculate_5 = ((Number(income) - 8000000) * 0.35) + 2410000
+                results.innerHTML = calculate_5.toFixed(2);
+            }
+
+            else if (income <= 250000) {
+                var calculate_6 = 0.00;
+                results.innerHTML = calculate_6.toFixed(2);
+            }
+        } // END function income_tax()
+
+        function open_modal(modal) {
+            modal.style.display = "block";
+        } // END function open_modal(modal)
+
+        function close_modal() {
+            var modals = document.getElementsByClassName("modal");
+            for (var i = 0; i < modals.length; i++) {
+                modals[i].style.display = "none";
+            } // END function close_modal()
+        }
+    }
+    document.getElementById("button_calculate").addEventListener("click", income_tax);
+</script>
+</body>
+</html>
