@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    
+    <title>
+        Nth Factorial, Sum, and Average - My Awesome Website
+    </title>
+
+    <style>
+        html, body {
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #584066;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        nav {
+            background-color: #402c4a;
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #584066;
+            color: white;
+        }
+
+        main {
+            margin: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #584066;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        select {
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #584066;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #402c4a;
+        }
+
+        #results {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #584066;
+        }
+
+        a:hover {
+            color: #402c4a;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        .modal button {
+            background-color: #584066;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .modal button:hover {
+            background-color: #402c4a;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1> My Awesome Website </h1>
+    </header>
+
+    <nav>
+        <a href = "index.html"> Main Menu </a>
+        <a href = "assignment_1.html"> Simple Computations </a>
+        <a href = "assignment_2.html"> Income Tax Calculator </a>
+        <a href = "assignment_3.html"> Nth Factorial, Sum, and Average </a>
+        <a href = "assignment_4.html"> Simple Payroll </a>        
+    </nav>
+
+    <main>
+        <br>
+        <h2> Nth Factorial, Sum, and Average </h2>
+        <label for = "nth_number"> Enter Integer: </label>
+        <input type = "number" id = "nth_number">
+
+        <label for = "calculation_scale"> Select Calculation Scale: </label>
+        <select id = "calculation_scale">
+            <option value = "nth_factorial"> Factorial </option>
+            <option value = "nth_sum"> Sum </option>
+            <option value = "nth_average"> Average </option>
+        </select>
+
+        <br>
+        <button id = "button_calculate"> Calculate </button>
+
+        <div id = "results"></div>
+    </main>
+
+    <div class = "modal" id = "no_input_modal">
+        <div class = "modal-content">
+            <p> Please enter a valid integer and click 'Calculate'. </p>
+            <button onclick = "close_modal()"> OK </button>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            var nth_number = parseInt(document.getElementById("nth_number").value);
+            var calculation_scale = document.getElementById("calculation_scale").value; 
+            var results = document.getElementById("results");
+            var factorial = 1;
+            var sum = 0;
+            var average = 0;
+            var counter = 1;
+        
+            if (isNaN(nth_number)) {
+                open_modal(no_input_modal);
+                return;
+            }
+
+            if (calculation_scale == "nth_factorial") {
+                while (counter <= nth_number) {
+                    factorial *= counter;
+                    counter = counter + 1;
+                }
+            results.innerHTML = "The factorial of " + nth_number + " is: " + factorial;
+            }
+
+            else if (calculation_scale == "nth_sum") {
+                do {
+                    sum += counter;
+                    counter = counter + 1;
+                }
+
+                while (counter <= nth_number);
+            results.innerHTML = "The sum of numbers from 1 to " + nth_number + " is: " + sum;
+            }
+
+            else if (calculation_scale == "nth_average") {
+                for (counter = 1; counter <= nth_number; counter++) {
+                    sum += counter;
+                }
+                average = sum / nth_number;
+            results.innerHTML = "The average of numbers from 1 to " + nth_number + " is: " + average;
+            }
+        } // END function calculate ()
+
+        function open_modal(modal) {
+            modal.style.display = "block";
+        } // END function open_modal(modal)
+
+        function close_modal() {
+            var modals = document.getElementsByClassName("modal");
+            for (var i = 0; i < modals.length; i++) {
+                modals[i].style.display = "none";
+            }
+        } // END function close_modal
+        document.getElementById("button_calculate").addEventListener("click", calculate);
+    </script>
+</body>
+</html>
