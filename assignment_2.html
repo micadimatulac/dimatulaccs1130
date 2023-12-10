@@ -170,7 +170,7 @@
             var income = parseFloat(document.getElementById("income").value);
             var results = document.getElementById("results");
 
-            if (isNaN(income) || income <= 0) {
+            if (isNaN(income) || income < 0) {
                 open_modal(no_input_modal);
                 return;
             }
