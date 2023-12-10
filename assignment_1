@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    
+    <title>
+        Simple Computations - My Awesome Website
+    </title>
+
+    <style>
+        html, body {
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #584066;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        nav {
+            background-color: #402c4a;
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #584066;
+            color: white;
+        }
+
+        main {
+            margin: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #584066;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        select {
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #584066;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #402c4a;
+        }
+
+        #results {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #584066;
+        }
+
+        a:hover {
+            color: #402c4a;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        .modal button {
+            background-color: #584066;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .modal button:hover {
+            background-color: #402c4a;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1> My Awesome Website </h1>
+    </header>
+
+    <nav>
+        <a href = "index.html"> Main Menu </a>
+        <a href = "assignment_1.html"> Simple Computations </a>
+        <a href = "assignment_2.html"> Income Tax Calculator </a>
+        <a href = "assignment_3.html"> Nth Factorial, Sum, and Average </a>
+        <a href = "assignment_4.html"> Simple Payroll </a>        
+    </nav>
+
+    <main>
+        <br>
+        <h2> Simple Computations </h2>
+        
+        <label for = "measurement"> Enter Measurement: </label>
+        <input type = "number" id = "measurement" required>
+
+        <label for = "measurement_scale"> Select Conversion Scale: </label>
+        <select id = "measurement_scale" required>
+            <option value = "FtoC"> Fahrenheit to Celsius </option>
+            <option value = "CtoF"> Celsius to Fahrenheit </option>
+            <option value = "MtoFT"> Meters to Feet </option>
+            <option value = "FTtoM"> Feet to Meters </option>
+        </select>
+
+        <br>
+        <button id = "button_convert"> Convert </button>
+
+        <div id = "results"></div>
+    </main>
+
+    <div class = "modal" id = "no_input_modal">
+        <div class = "modal-content">
+            <p> No value entered. Please enter a value and click 'Convert'. </p>
+            <button onclick="close_modal()"> OK </button>
+        </div>
+    </div>
+
+    <script>
+        function convert() {
+            var measurement = document.getElementById("measurement").value;
+            var measurement_scale = document.getElementById("measurement_scale").value;
+            var results = document.getElementById("results");
+
+            if (measurement === "") {
+                open_modal(no_input_modal);
+                return;
+            }
+
+            else if (measurement_scale == "FtoC") {
+                var formula_FtoC = (Number(measurement) - 32) * 5 / 9;
+                var FtoC = measurement + " Fahrenheit is equal to " + formula_FtoC.toFixed(2) + " Celsius";
+                results.innerHTML = FtoC;
+            } 
+            
+            else if (measurement_scale == "CtoF") {
+                var formula_CtoF = Number(measurement) * 1.8 + 32;
+                var CtoF = measurement + " Celsius is equal to " + formula_CtoF.toFixed(2) + " Fahrenheit";
+                results.innerHTML = CtoF;
+            } 
+        
+            else if (measurement_scale == "MtoFT") {
+                var formula_MtoFT = Number(measurement) * 3.281;
+                var MtoFT = measurement + " Meters is equal to " + formula_MtoFT.toFixed(2) + " Feet";
+                results.innerHTML = MtoFT;
+            } 
+            
+            else if (measurement_scale == "FTtoM") {
+                var formula_FTtoM = Number(measurement) / 3.281;
+
+                if (Number(measurement) == 1) {
+                    var FTtoM1 = measurement + " Foot is equal to " + formula_FTtoM.toFixed(2) + " Meters";
+                    results.innerHTML = FTtoM1;
+                } 
+            
+                else if (Number(measurement) > 1) {
+                    var FTtoM2 = measurement + " Feet is equal to " + formula_FTtoM.toFixed(2) + " Meters";
+                    results.innerHTML = FTtoM2;
+                }
+
+                else if (Number(measurement) < 1) {
+                    var FTtoM3 = measurement + " Feet is equal to " + formula_FTtoM.toFixed(2) + " Meters";
+                    results.innerHTML = FTtoM3;
+                }
+            }
+        } // END function convert()
+
+        function open_modal(modal) {
+            modal.style.display = "block";
+        } // END function open_modal(modal)
+
+        function close_modal() {
+            var modals = document.getElementsByClassName("modal");
+            for (var i = 0; i < modals.length; i++) {
+                modals[i].style.display = "none";
+            }
+        } // END function close_modal()
+
+        document.getElementById("button_convert").addEventListener("click", convert);
+</script>
+</body>
+</html>
+
+
+
