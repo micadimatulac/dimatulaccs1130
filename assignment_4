@@ -1,0 +1,434 @@
+ <!DOCTYPE html>
+<html lang = "en">
+
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+
+    <title>
+        Simple Payroll - My Awesome Website
+    </title>
+
+    <style>
+        html, body {
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #584066;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        nav {
+            background-color: #402c4a;
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #584066;
+            color: white;
+        }
+
+        main {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+            width: 80%;
+        }
+
+        .input_payroll {
+            width: 45%;
+            text-align: left;
+        }
+
+        .delete {
+            width: 45%;
+            text-align: left;
+        }
+
+        h2 {
+            color: #584066;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px 0;
+            font-size: 16px;
+            width: calc(100% - 40px);
+        }
+
+        .delete {
+            width: 45%;
+            text-align: left;
+        }
+
+        .remove-label {
+            display: block;
+            margin: 10px 0;
+            margin-left: 20px;
+            margin-top: 75px;
+        }
+
+        .remove-input {
+            padding: 8px;
+            margin: 5px 0;
+            font-size: 16px;
+            width: calc(100% - 12px);
+            margin-bottom: 25px;
+            margin-left: 20px;
+        }
+
+        .remove-button {
+            background-color: #584066;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            margin-left: 20px;
+        }
+
+        .remove-button:hover {
+            background-color: #402c4a;
+        }
+
+        select {
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #584066;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #402c4a;
+        }
+
+        #results {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 75px;
+        }
+
+        th, td {
+            border: 1px solid #584066;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #584066;
+            color: white;
+        }
+
+        a {
+            text-decoration: none;
+            color: #584066;
+        }
+
+        a:hover {
+            color: #402c4a;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        .modal button {
+            background-color: #584066;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .modal button:hover {
+            background-color: #402c4a;
+        }
+
+        .error-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .error-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        .error-modal button {
+            background-color: #584066;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .error-modal button:hover {
+            background-color: #402c4a;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1> My Awesome Website </h1>
+    </header>
+
+    <nav>
+        <a href = "index.html"> Main Menu </a>
+        <a href = "assignment_1.html"> Simple Computations </a>
+        <a href = "assignment_2.html"> Income Tax Calculator </a>
+        <a href = "assignment_3.html"> Nth Factorial, Sum, and Average </a>
+        <a href = "assignment_4.html"> Simple Payroll </a>
+    </nav>
+
+    <main>
+        <div class = "input_payroll">
+            <h2> Simple Payroll </h2>
+                <label for = "employee_name"> Enter Employee Name: </label>
+                <input type = "text" id = "employee_name" required = "required">
+
+                <label for = "days_worked"> Enter Days Worked: </label>
+                <input type = "number" id = "days_worked" required = "required">
+
+                <label for = "daily_rate"> Enter Daily Rate: </label>
+                <input type = "number" id = "daily_rate" required = "required">
+
+                <label for = "deduction_amt"> Enter Deduction Amount: </label>
+                <input type = "number" id = "deduction_amt" required = "required">
+            <br><br>
+            <button onclick = "add_employee()"> Add Employee </button>
+        </div>
+
+        <table>
+            <thead class = "table_head">
+                <tr>
+                    <th class = "tbl"> No. </th>
+                    <th class = "tbl"> Employee Name </th>
+                    <th class = "tbl"> Days Worked </th>
+                    <th class = "tbl"> Daily Rate </th>
+                    <th class = "tbl"> Gross Pay </th>
+                    <th class = "tbl"> Deduction Amount </th>
+                    <th class = "tbl"> Net Pay </th>
+                </tr>
+            </thead>
+            <tbody id = "table_body"></tbody>
+        </table>
+
+        <div class = "delete">
+            <label class = "remove-label" for = "remove"> Remove Employee: </label>
+            <input type = "number" id = "remove" required = "required" class = "remove-input">
+            <button onclick = "remove_employee()" class = "remove-button"> Remove </button>
+            <button onclick = "open_modal_clear()"> Clear Table </button>
+        </div>
+    </main>
+
+    <div class = "modal" id = "modal_confirmation">
+        <div class = "modal-content">
+            <p> Are you sure you want to remove Employee <span id = "employeeToRemove"></span>? </p>
+            <button onclick = "confirm_remove()"> Remove </button>
+            <button onclick = "close_modal()"> Cancel </button>
+        </div>
+    </div>
+
+    <div class = "modal" id = "modal_clear">
+        <div class = "modal-content">
+            <p> Are you sure you want to clear the table? </p>
+            <button onclick = "clear_table()"> Yes </button>
+            <button onclick = "close_modal_clear(false)"> Cancel </button>
+        </div>
+    </div>
+
+    <div class = "error-modal" id = "modal_error">
+        <div class = "error-modal-content">
+            <p> Please fill in all the required fields. </p>
+            <button onclick = "close_modal_error()"> OK </button>
+        </div>
+    </div>
+
+    <script>
+        var employee_array = [];
+
+        function add_employee() {
+            let emp = {
+                Employee_Name: document.getElementById("employee_name").value,
+                Days_Worked: document.getElementById("days_worked").value,
+                Daily_Rate: document.getElementById("daily_rate").value,
+                Deduction_Amount: document.getElementById("deduction_amt").value,
+
+                Gross_Pay:
+                    function () {
+                        return this.Days_Worked * this.Daily_Rate;
+                    },
+
+                Net_Pay:
+                    function () {
+                        return this.Gross_Pay() - this.Deduction_Amount;
+                    }
+            };
+
+            if (validate_input(emp)) {
+                employee_array.push(emp);
+                show_table();
+            } 
+            
+            else {
+                open_modal_error();
+            }
+        } // END function add_employee()
+
+        function validate_input(employee) {
+            return (
+                employee.Employee_Name.trim() !== "" &&
+                employee.Days_Worked.trim() !== "" &&
+                employee.Daily_Rate.trim() !== "" &&
+                employee.Deduction_Amount.trim() !== ""
+            );
+        } // END function validate_input(employee)
+
+        function remove_employee() {
+            var to_remove = document.getElementById("remove").value;
+            if (to_remove.trim() !== "") {
+                document.getElementById("employeeToRemove").innerText = to_remove;
+                open_modal();
+            } 
+            
+            else {
+                open_modal_error();
+            }
+        } // END function remove_employee()
+
+        function open_modal() {
+            document.getElementById("modal_confirmation").style.display = "block";
+        } // END function open_modal()
+
+        function close_modal() {
+            document.getElementById("modal_confirmation").style.display = "none";
+        } // END function close_modal()
+
+        function open_modal_error() {
+            document.getElementById("modal_error").style.display = "block";
+        } // END function open_modal_error()
+
+        function close_modal_error() {
+            document.getElementById("modal_error").style.display = "none";
+        } // END function close_modal_error
+
+        function confirm_remove() {
+            var toRemove = document.getElementById("remove").value;
+            employee_array.splice(toRemove - 1, 1);
+            show_table();
+            close_modal();
+        } // END function confirm_remove()
+
+        function show_table() {
+            let tbody = "";
+            for (let i = 0; i < employee_array.length; i++) {
+                let ln = i + 1;
+                tbody += "<tr>" +
+                    '<td>' + ln + '</td>' +
+                    '<td>' + employee_array[i].Employee_Name + '</td>' +
+                    '<td>' + employee_array[i].Days_Worked + '</td>' +
+                    '<td>' + parseFloat(employee_array[i].Daily_Rate).toFixed(2) + '</td>' +
+                    '<td>' + parseFloat(employee_array[i].Gross_Pay()).toFixed(2) + '</td>' +
+                    '<td>' + parseFloat(employee_array[i].Deduction_Amount).toFixed(2) + '</td>' +
+                    '<td>' + parseFloat(employee_array[i].Net_Pay()).toFixed(2) + '</td>' +
+                    '</tr>';
+            }
+            document.getElementById("table_body").innerHTML = tbody;
+        } // END function show_table()
+
+        function clear_table() {
+            employee_array = [];
+            show_table();
+            close_modal_clear();
+        } // END function clear_table()
+
+        function open_modal_clear() {
+            console.log("Open Clear Table Confirmation Modal");
+            document.getElementById("modal_clear").style.display = "block";
+        } // END function open_modal_clear()
+
+        function close_modal_clear(confirm) {
+            console.log("Close Clear Table Modal");
+            document.getElementById("modal_clear").style.display = "none";
+
+            if (confirm) {
+                employee_array = [];
+                show_table();
+            }
+        } // END function close_modal_clear()
+    </script>
+</body>
+</html>
